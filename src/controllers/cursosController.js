@@ -1,56 +1,56 @@
-const { Cursos } = require("../models")
+const { Cursos } = require("../models");
 
 const cursosController = {
-    async listarCursos(req, res){
-        const listaDeCursos = await Cursos.findAll()
-        res.status(200).json(listaDeCursos)
-    },
-    // async cadastrarProduto(req, res){
-    //     const {nome, preco, quantidade, fabricante_id, categoria_id} = req.body
+  async listarCursos(req, res) {
+    const listaDeCursos = await Cursos.findAll();
+    res.status(200).json(listaDeCursos);
+  },
+  // async cadastrarProduto(req, res){
+  //     const {nome, preco, quantidade, fabricante_id, categoria_id} = req.body
 
-    //     const novoProduto = await Produtos.create({
-    //         nome,
-    //         preco,
-    //         quantidade,
-    //         fabricante_id
-    //     })
+  //     const novoProduto = await Produtos.create({
+  //         nome,
+  //         preco,
+  //         quantidade,
+  //         fabricante_id
+  //     })
 
-    //     const categoria = await Categorias.findByPk(categoria_id)
+  //     const categoria = await Categorias.findByPk(categoria_id)
 
-    //     await novoProduto.setCategoria(categoria)
+  //     await novoProduto.setCategoria(categoria)
 
-    //     res.json(novoProduto)
-    // },
-    // async deletarProduto(req, res) {
-    //     const { id } = req.params
+  //     res.json(novoProduto)
+  // },
+  // async deletarProduto(req, res) {
+  //     const { id } = req.params
 
-    //     await Produtos.destroy({
-    //         where: {
-    //             id
-    //         }
-    //     })
+  //     await Produtos.destroy({
+  //         where: {
+  //             id
+  //         }
+  //     })
 
-    //     res.json("Produto Deletado")
-    // },
-    // async atualizarProduto(req, res) {
-    //     const {id} = req.params
-    //     const {nome, preco, quantidade} = req.body
+  //     res.json("Produto Deletado")
+  // },
+  async atualizarCursos(req, res) {
+    const { id } = req.params;
+    const { titulo, professor, descricao } = req.body;
 
-    //     const produtoAtualizado = await Produtos.update(
-    //         {
-    //             nome, 
-    //             preco,
-    //             quantidade
-    //         },
-    //         {
-    //             where:{
-    //                 id
-    //             }
-    //         }
-    //     )
+    const cursoAtualizado = await Cursos.update(
+      { ...req.body },
+      {
+        where: {
+          id,
+        },
+      }
+    );
 
-    //     res.json("Produto Alterado")
-    // }
-}
+    if (!titulo || !professor || !descricao) {
+        return res.status(400).json({error: "Os parâmetros não foram enviados da forma correta"})
+    }
 
-module.exports = cursosController
+    res.status(204).json(cursoAtualizado);
+  },
+};
+
+module.exports = cursosController;

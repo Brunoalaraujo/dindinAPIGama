@@ -23,6 +23,7 @@ async function hasConection(){
         await db.authenticate()
         console.log("Banco de dados conectado!") 
     } catch (error) {
+        console.log(error)
         console.error("Erro ao tentar uma conexão com banco de dados")
     }
 }
