@@ -5,33 +5,6 @@ const cursosController = {
     const listaDeCursos = await Cursos.findAll();
     res.status(200).json(listaDeCursos);
   },
-  // async cadastrarProduto(req, res){
-  //     const {nome, preco, quantidade, fabricante_id, categoria_id} = req.body
-
-  //     const novoProduto = await Produtos.create({
-  //         nome,
-  //         preco,
-  //         quantidade,
-  //         fabricante_id
-  //     })
-
-  //     const categoria = await Categorias.findByPk(categoria_id)
-
-  //     await novoProduto.setCategoria(categoria)
-
-  //     res.json(novoProduto)
-  // },
-  // async deletarProduto(req, res) {
-  //     const { id } = req.params
-
-  //     await Produtos.destroy({
-  //         where: {
-  //             id
-  //         }
-  //     })
-
-  //     res.json("Produto Deletado")
-  // },
   async atualizarCursos(req, res) {
     const { id } = req.params;
     const { titulo, professor, descricao } = req.body;
@@ -51,6 +24,17 @@ const cursosController = {
 
     res.status(204).json(cursoAtualizado);
   },
+  async deletarCursos(req, res) {
+    const { id } = req.params
+
+    await Cursos.destroy({
+        where: {
+            id
+        }
+    })
+
+    res.status(204).json("Curso Deletado")
+}
 };
 
 module.exports = cursosController;
